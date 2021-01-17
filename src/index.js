@@ -50,7 +50,7 @@ var mongoose = require('mongoose');
   
     server.applyMiddleware({ app, path: '/graphql' });
   
-    app.listen({ port: process.env.PORT || 8000 }, () => {
+    app.listen(process.env.PORT || 8000, () => {
       console.log('Apollo Server On');
     })
   
