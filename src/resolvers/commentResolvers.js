@@ -1,0 +1,32 @@
+import mongoose from 'mongoose'
+import { PubSub } from 'apollo-server-express'
+import { Comment, Chat } from '../models'
+
+const COMMENT_ADDED = 'COMMENT_ADDED';
+const pubsub = new PubSub();
+
+export default {
+    Subscription: {
+        commentAdded: {
+          subscribe: () => pubsub.asyncIterator([COMMENT_ADDED]),
+        },
+      },
+    Query: {
+        comments: (root, args) => {
+            return Comment.find({})
+        }
+    },
+    Mutation: {
+        newComment: async (root, args, { req }) => {
+            pubsub.publish(COMMENT_ADDED, { commentAdded: args });
+            const comment = await Comment.create(args)
+            await Chat.findByIdAndUpdate(args.chat, { $push: { comments: comment } })           
+            return comment
+        },
+    },
+    Comment: {
+        user: async (comment, args, context, info) => {
+            return (await comment.populate('user').execPopulate()).user
+        },
+    }
+}
