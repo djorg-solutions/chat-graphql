@@ -22,19 +22,19 @@ var mongoose = require('mongoose');
      const app = express();
      app.use(cors());
   
-     const addUser = async  (req) => {
+    //  const addUser = async  (req) => {
 
-      const token = req.headers.authorization
-      try {
-       const { user } = await jwt.verify(token, SECRET)
-       req.user = user
-      } catch (error) {
-        console.log(error)
-      }
-      req.next()
-    }
+    //   const token = req.headers.authorization
+    //   try {
+    //    const { user } = await jwt.verify(token, SECRET)
+    //    req.user = user
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    //   req.next()
+    // }
 
-    app.use(addUser);
+    // app.use(addUser);
 
     const server = new ApolloServer({
       typeDefs,
