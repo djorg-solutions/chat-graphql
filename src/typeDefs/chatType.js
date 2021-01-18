@@ -3,6 +3,7 @@ import { gql } from 'apollo-server-express'
 export default gql`
  type Chat{
    id: ID!
+   type: String!
    name: String!
    comments: [Comment]
    owner: User!
@@ -16,6 +17,6 @@ export default gql`
  }
  
  extend type Mutation {
-  newChat(name: String!, owner: ID, guests: [String!]!): Chat
+  newChat(name: String!, type:String!, owner: ID, guests: [String!]): Chat
  }
 `

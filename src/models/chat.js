@@ -3,6 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 const { ObjectId } = Schema.Types
 
 const chatSchema = Schema({
+    type: String,
     name: String,
     comments: [{
         type: ObjectId,

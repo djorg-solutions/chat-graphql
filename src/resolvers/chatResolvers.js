@@ -15,10 +15,12 @@ export default {
     Mutation: {
         newChat: async (root, args, { req }) => {
                 const chat = await Chat.create(args)
-                await User.findByIdAndUpdate(args.owner, { $push: { chats: chat } })
-                args.guests.forEach(async item => {
+                if(args.owner){
+                    await User.findByIdAndUpdate(args.owner, { $push: { chats: chat } })
+                    args.guests.forEach(async item => {
                     await User.findByIdAndUpdate(item, { $push: { chats: chat } })
                 });    
+                }
                 return chat
         },
     },
