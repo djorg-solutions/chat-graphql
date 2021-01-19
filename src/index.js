@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import cors from 'cors';
+import {createServer} from 'http';
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import {IN_PROD, DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME, SECRET} from './config';
@@ -47,10 +48,13 @@ var mongoose = require('mongoose');
       },
       context:({req, res}) => ({req, res })
     })
-  
+
     server.applyMiddleware({ app, path: '/graphql' });
-  
-    app.listen(process.env.PORT || 8000, () => {
+
+    const httpServer = createServer(app);
+    server.installSubscriptionHandlers(httpServer);
+
+    httpServer.listen(process.env.PORT || 8000, () => {
       console.log('Apollo Server On');
     })
   
