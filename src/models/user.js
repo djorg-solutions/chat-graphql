@@ -20,6 +20,10 @@ const userSchema = Schema({
     chats: [{
         type: ObjectId,
         ref: 'Chat'
+    }],
+    comments: [{
+        type: ObjectId,
+        ref: 'Comment'
     }]
 }, { timestamps: true })
 

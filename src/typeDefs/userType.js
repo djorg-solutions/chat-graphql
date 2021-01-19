@@ -11,6 +11,7 @@ export default gql`
    country: String
    phone: String
    chats: [Chat]
+   comments: [Comment]
    createdAt: String!
  }
 

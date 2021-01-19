@@ -43,5 +43,8 @@ export default {
         chats: async (user, args, context, info) => {
             return (await user.populate('chats').execPopulate()).chats
         },
+        comments: async (user, args, context, info) => {
+            return (await user.populate('comments').execPopulate()).comments
+        },
     }
 }
