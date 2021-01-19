@@ -29,7 +29,7 @@ export const ensureSignedIn = req => {
 export const getToken = async (user) => {
 
     const token = jwt.sign({
-            user: _.pick(user, ['username']),
+            user: _.pick(user, ['_id','username']),
         },
         SECRET, {
             expiresIn: '1y',
